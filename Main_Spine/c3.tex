@@ -1,69 +1,319 @@
 % !TeX root = ../main.tex
 
-\xchapter{算法与代码}{Algorithm and Code}
+\xchapter{中国北方草地物候表征体系及空间格局}{Spatial patterns}
 
-\begin{tcolorbox}[colback=red!5!white,colframe=red!75!black]
-  学校并未对 算法 或 代码 的排版格式作出限定，因此可以自行修改。
-\end{tcolorbox}
+传统遥感物候表征主要通过提取单一遥感数据源、部分时间序列中的特定指标，如基于归一化植被指数（NDVI）提取的生长季始期（Start of the growing season，SOS）和生长季末期（End of the growing season，EOS），来描述植被的物候变化。本章节提出一种更为综合的基于多源遥感数据源和全时间序列分析的陆地表面物候表征体系，分析了中国北方草地关键物候期时间和生长季特征的空间格局（\cref{figure31}）。其中第一部分介绍关键物候期在区域尺度、不同草地类型尺度和格点尺度下的空间格局以及多源数据对比；第二部分介绍生长季特征提取和生长季特征突变的空间格局；第三部分为本章讨论和小结。
 
-\xsection{算法}{Algorithm}
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.9\textwidth]{D:/PHDprojects/latex/XJTU-thesis/Figures/Chapter3/Concept figure.pdf}
+  \caption{物候表征体系示意图。物候表征体系包括关键物候期和物候季节性，本研究中关键物候期包括生长季始期、生长旺盛期、生长季末期和生长季长度；物候季节性为时间序列指标去趋势后季节项特征。}
+  \label{figure31}
+  \addtocounter{figure}{-1}
+  \vspace{5pt}
+  %\SetEnglishCaption
+  \renewcommand{\figurename}{Fig}
+  \caption{Conceptual diagram of phenological characterization system. The phenology characterization system includes key phenological metrics and phenological seasonality. In this study, the phenological metrics include the start of the growing season, the peak of the growing season, the end of the growing season, and the length of the growing season. Phenological seasonality is characterized by the seasonal features of the time series indicators after detrending.}
+\end{figure}
 
-考虑到实际使用需求，即长算法分段和注释功能，模板不再使用 \clist[columbiablue]{algorithm2e} 作为默认算法排版工具，改为调用 \clist[columbiablue]{algpseudocode}。注意，这两个宏包相互冲突。算法的具体编写方式请自行查阅宏包，即\clist{texdoc algpseudocode}。
+\xsection{关键物候期的空间格局}{Phenological metrics}
+\xsubsection{区域尺度下多源遥感关键物候期}{Regional scale}
 
-\begin{texcode}[]{}
-\begin{algorithm}[H]
-  \caption{How to write algorithms}
-  \begin{algorithmic}[1]
-      \State \textbf{Input:} this text
-      \State \textbf{Output:} how to write algorithm with \LaTeX2e \Comment{Just a comment}
-      \State initialization
-      \While{not at end of this document}
-        \State read current
-        \If{understand}
-          \State go to next section
-          \State current section becomes this one
-        \Else{$k\geq k^\text{max}$}
-          \State go back to the beginning of current section
-        \EndIf
-      \EndWhile
-  \end{algorithmic}
-\end{algorithm}
-\end{texcode}
+基于观测数据（GIMMS NDVI数据和CSIF V2数据，\colorbox{yellow}{详见 2.1.1 和 2.1.3）}计算的中国北方草地平均生长季始期（SOS）为第135 ± 15天（\cref{figure32}）。其中，基于NDVI数据提取的中国北方草地平均SOS为第127 ± 16天，而基于SIF数据提取的中国北方草地平均SOS为第144 ± 20天。相比于观测数据的结果，基于模型平均的中国北方草地SOS较晚，为第143 ± 22天。进一步分析基于模型提取的SOS，CLM（第124 ± 12天）、LPX（第125 ± 25天）与NDVI观测值基本一致，VEGAS（第146 ± 23天）与SIF观测值基本一致，而VISIT模型模拟SOS较晚，为第153 ± 28天。5个生态系统模型之间的SOS差异可达29天。结果表明生态系统模型对中国北方草地生长季始期的模拟整体比基于观测的结果偏晚。
 
-\begin{texcode}[]{}
-  \begin{algorithm}[H]
-    \caption{Simulation-optimization heuristic}\label{algorithm:SOH}
-    \begin{algorithmic}[1]
-        \State \textbf{Data:} current period $t$, initial inventory $I_{t-1}$, initial capital $B_{t-1}$, demand samples
-        \State \textbf{Output:} Optimal order quantity $Q^{\ast}_{t}$
-        \State $r\leftarrow t$
-        \State $\Delta B^{\ast}\leftarrow -\infty$
-        \While{$\Delta B\leq \Delta B^{\ast}$ and $r\leq T$}
-          \State $Q\leftarrow\arg\max_{Q\geq 0}\Delta B^{Q}_{t,r}(I_{t-1},B_{t-1})$
-          \State $\Delta B\leftarrow \Delta B^{Q}_{t,r}(I_{t-1},B_{t-1})/(r-t+1)$
-          \If{$\Delta B\geq \Delta B^{\ast}$}
-            \State $Q^{\ast}\leftarrow Q$
-            \State $\Delta B^{\ast}\leftarrow \Delta B$
-          \EndIf
-          \State $r\leftarrow r+1$
-        \EndWhile
-    \end{algorithmic}
-  \end{algorithm}
-\end{texcode}
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.65\textwidth]{D:/PHDprojects/latex/XJTU-thesis/Figures/Chapter3/LSPsourcespatialmean.pdf}
+  \caption{区域尺度下基于观测数据和基于模型模拟的中国北方草地关键物候期。其中基于观测的数据源为NDVI和SIF指数，基于模型的数据源为5个生态系统模型LAI指数，并给出基于观测平均和基于模型平均的物候期。}
+  \addtocounter{figure}{-1}
+  \vspace{5pt}
+  %\SetEnglishCaption
+  \renewcommand{\figurename}{Fig}
+  \caption{Spatial mean of key phenological metrics based on observation data and model simulations. The observational data sources are NDVI and SIF indices, and the model-based data sources are LAI indices from five terrestrial ecosystem models. The average of observational data and the average of model-based data are also provided.}
+  \label{figure32}
+\end{figure}
+
+基于观测数据平均的生长旺盛期（POS）为第219 ± 13天，基于NDVI数据和基于SIF数据提取的POS较为接近，分别为第222 ± 12天和第215 ± 16天。基于模型模拟的平均POS为第242 ± 15天，较观测平均值偏晚，其中LPX（第222 ± 6天）和LPJ（第226 ± 11天）最接近观测数据的结果，而VEGAS（第243 ± 14天）和VISIT（第256 ± 23天）模型对POS的估计偏晚。生态系统模型间的POS模拟差异相较于SOS进一步加大，最多相差34天。
+
+基于观测数据平均的生长季末期（EOS）为第265 ± 16天，其中基于NDVI数据反映的EOS为第284 ± 12天，而基于SIF计算的结果为第242 ± 17天。基于模型模拟的平均EOS为第316 ± 13天，远晚于观测数据估算的结果。所有5个模型计算的EOS均晚于基于观测平均的SOS，其中LPJ（第294 ± 14天）、LPX（第294 ± 15天）的模拟结果相对较早，与基于NDVI数据计算的EOS结果相差10天左右。而CLM（第322 ± 12天）和VISIT（第339 ± 34天）的结果偏晚，比NDVI观测值推迟约47-54天。
+
+基于观测数据平均的生长季长度（LOS）为131 ± 17天，基于NDVI数据计算的LOS为158 ± 16天，相比基于NDVI提取的结果，基于SIF数据提取的SOS较晚而EOS较早，因此对应的LOS较短，为99 ± 21天。与观测结果相比，由于基于模型模拟的EOS普遍较晚，所有模型计算的LOS均长于基于观测的平均LOS。其中，VEGAS模型（159 ± 29天）与基于NDVI观测的LOS基本一致；CLM（198 ± 15天）模拟的LOS最长，与NDVI观测的LOS相差约40天，与其他模型计算的结果相差约12-39天。
+
+\xsubsection{不同草地类型下多源遥感关键物候期}{Grass scale}
+
+在不同草地植被类型尺度下，我们分别研究了中国北方草地6类草地植被类型（图2-xx）的SOS，POS，EOS和LOS。首先比较基于观测和基于模型的SOS的平均结果（\cref{figure33}），我们发现在4种温带草地类型中，基于观测平均和基于模型平均的SOS时间比较接近，相差在1-7天，温带草甸草原二者估计基本一致（第128天），其余4种温带草地类型模型平均的SOS偏早。然而在高寒草甸和高寒草原中，基于模型平均的SOS明显晚于基于观测的结果，因此模型对于中国北方草地SOS的模拟偏晚主要源于对高寒草地类型植被SOS的模拟偏晚。其中，基于模型平均的高寒草甸SOS比基于观测的SOS晚约9天，而在高寒草原中模型模拟比观测平均晚19天。
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.8\textwidth]{D:/PHDprojects/latex/XJTU-thesis/Figures/Chapter3/LSPsourcespatialmean_typescompare.pdf}
+  \caption{不同草地类型下基于观测和模型的关键物候期的平均值。6种草地类型分别为高寒草甸（AM）、高寒草原（AS）、温带荒漠草原（TDS）、温带草甸（TM）、温带草甸草原（TMS）、温带典型草原（TS）。}
+  \addtocounter{figure}{-1}
+  \vspace{5pt}
+  %\SetEnglishCaption
+  \renewcommand{\figurename}{Fig}
+  \caption{Ensemble-mean phenological metrics based on model and observation data for different grassland types. Six grassland types are alpine meadow (AM), alpine steppe (AS), temperate desert steppe (TDS), temperate meadow (TM), temperate meadow steppe (TMS), and temperate typical steppe (TS).}
+  \label{figure33}
+\end{figure}
+
+对于POS，模型模拟平均值在不同程度上均晚于基于观测的POS（\cref{figure33}），在不同草地类型中相差8-30天。高寒草甸和高寒草原的POS在基于观测和基于模型的结果中差异最大，模型平均值分别高估30天和28天，而在温带4种草地类型中，温带荒漠草原差异最小（模型偏晚8天），其他3种温带草地类型中，基于模型平均的POS偏晚15-19天。因此，模型模拟的POS在所有植被类型中均偏晚，同样的，在高寒草地类型中偏晚最显著。
+
+EOS在基于模型和基于观测的结果中差异最大，在不同植被类型中，模型模拟的平均EOS普遍比观测平均的EOS晚37-60天，与POS相同，在高寒草甸中差异最大（模型模拟偏晚60天）。对于LOS，由于基于SIF观测的EOS普遍较早，而模型模拟的EOS普遍较晚，导致基于模型平均的LOS均大于基于观测平均的LOS，在高寒草甸和温带典型草原中高估达50天，高寒草原中高估差异最小，为26天。因此，以上结果表明当前\textbf{生态系统模型对于高寒生态系统的草地关键物候期模拟存在较大问题}。
+
+尽管基于模型的物候期结果与观测值存在差异，但不同来源的数据集均反映出高寒草原和高寒草甸与其他温带草地植被类型（荒漠草原、草甸、草甸草原和典型草原）物候期的基本特征。如\cref{figure33}，基于观测平均的高寒草原SOS（第143 ± 15天）和高寒草甸SOS（第142 ± 9天）较晚，而基于观测平均的其他温带草地植被类型较早，其中温带草甸SOS最早为第125 ± 16天。基于模型平均的SOS也体现同样的植被类型差异，表现为高寒草原SOS最晚（第164 ± 15天），高寒草甸SOS次晚（第153 ± 11天），而温带草甸SOS最早（第121 ± 15天）。POS在高寒草地和温带草地不同类型中的差异一致，基于观测平均的POS和基于模型平均的POS均在高寒草原中最晚，分别为第226 ± 14天和第255 ± 10天；而基于观测平均的温带草甸草原POS最早（第209 ± 9天），基于模型平均的温带草甸POS最早（第226 ± 9天）。对于EOS，两类数据源计算结果均表明高寒草原EOS最晚，但基于观测平均的高寒草甸EOS（第262 ± 8天）早于温带荒漠草原（第269 ± 18天），而基于模型平均的高寒草甸EOS（第323 ± 11天）晚于其他4种温带草地植被类型。基于观测和基于模型平均的LOS均表现为在高寒草甸和高寒草原中较短，温带荒漠草原和温带草甸的LOS较长。
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.65\textwidth]{D:/PHDprojects/latex/XJTU-thesis/Figures/Chapter3/LSPsourcespatialmean_alpinemeadow.pdf}
+  \caption{高寒草甸基于观测数据和基于模型模拟的中国北方草地关键物候期。}
+  \addtocounter{figure}{-1}
+  \vspace{5pt}
+  %\SetEnglishCaption
+  \renewcommand{\figurename}{Fig}
+  \caption{Spatial mean of key phenological metrics based on observation data and model simulations for alpine meadow.}
+  \label{figure34}
+\end{figure}
+
+以下我们就不同草地植被类型的关键物候期数据源对比做详细介绍，以期分析不同模型在不同植被类型关键物候期模拟中的适用性。对于观测和模拟结果差异最大的高寒草甸地区（\cref{figure34}），基于模型平均（第153 ± 11天）的SOS与SIF观测值较为一致，而晚于NDVI观测值20天左右。各模型中，CLM模拟的SOS（第127 ± 12天）早于NDVI观测值，而其他模型均对SOS的模拟较晚。LPX模型模拟的POS（第227 ± 5天）与NDVI观测的POS（第224 ± 7天）基本一致，而VEGAS（第253 ± 8天）和VISIT（第270 ± 12天）模拟的POS明显晚于基于观测的平均值。同样的，LPX模型模拟的EOS（第283 ± 10天）与NDVI观测值（第283 ± 8天）基本一致，LPJ（第290± 8天）的结果也比较接近，而其他模型的结果均远晚于观测平均值。对于LOS，两观测源结果差距较大，SIF估计的LOS比NDVI估计值短超过60天；VEGAS模型（156 ± 25天）对于LOS的模拟最接近NDVI观测的结果（151 ± 11天），然而其SOS和EOS的模拟与基于NDVI计算的结果相差较大；LPX模型对POS和EOS的模拟与NDVI观测值基本一致，但由于其对SOS的模拟较晚，导致LOS相对于观测值较短。
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.65\textwidth]{D:/PHDprojects/latex/XJTU-thesis/Figures/Chapter3/LSPsourcespatialmean_alpinesteppe.pdf}
+  \caption{高寒草原基于观测数据和基于模型模拟的中国北方草地关键物候期。}
+  \addtocounter{figure}{-1}
+  \vspace{5pt}
+  %\SetEnglishCaption
+  \renewcommand{\figurename}{Fig}
+  \caption{Spatial mean of key phenological metrics based on observation data and model simulations for alpine steppe.}
+  \label{figure35}
+\end{figure}
+
+关键物候期的模型模拟和观测结果在高寒草原中差异也较大（\cref{figure35}），模型平均的SOS为第164 ± 15天，晚于基于NDVI（第139 ± 15天）和基于SIF（第147 ± 22天）观测的结果，其中 LPX（第147 ± 32天）的SOS和基于观测的平均值较为接近。模型LPJ（第230 ± 14天），LPX（第227 ± 7天），CLM（第235 ± 13天）对于POS的估算与NDVI（第230 ± 12天）所观测的结果比较接近，而EOS基于模型的结果较晚，只有LPJ（第282 ± 15天）和LPX（第283 ± 17天）的结果最接近NDVI观测值（第289 ± 15天）。SIF数据对于EOS的估算早于NDVI观测值，相差42天。对于LOS，VEGAS模型计算的LOS为136 ± 23天，最接近基于观测平均的结果（133 ± 20天）和基于NDVI提取的结果（150 ± 18天），然而VEGAS模型提取的SOS和EOS均较晚。综合高寒草甸模型与观测结果的比较，LPJ和LPX模型对于高寒草地两种类型的关键物候期模拟效果最接近遥感观测的结果。
+
+而对于温带荒漠草原区（\cref{figure36}），基于模型平均（第122 ± 6天）的SOS比基于观测平均（第129 ± 10天）的结果更早，但NDVI观测的SOS（第112 ± 10天）相对较早，而SIF观测的SOS最晚（第145 ± 14天）；模型中LPX（第109 ± 6天）模拟值与之最接近，LPJ、CLM和VEGAS模型模拟的SOS在第124天左右，而VISIT模型模拟值相对偏晚。POS基于观测的两套数据源提取的结果相差8天左右，SIF观测值相对较晚，而大多数生态系统模型模拟的POS均晚于观测平均POS，模型中LPX（第220 ± 3天）模拟值与基于NDVI观测的POS（第216 ± 6天）基本一致。所有模型对于EOS的模拟都晚于观测的EOS，其中LPJ（第298 ± 5天）的结果与基于NDVI数据计算的EOS（第284 ± 5天）最接近，但相差14天；而CLM（第329 ± 7天）和LPX（第307 ± 5天）模拟的EOS偏晚。观测结果中，基于NDVI与基于SIF提取的LOS相差较大，基于SIF计算的LOS为111 ± 17天，远短于基于NDVI计算的LOS（172 ± 10天）；模型模拟结果中，LPJ（176 ± 8天）与基于NDVI观测值基本一致，而其他模型对LOS的估计相对观测值均偏大。LPX模型对温带荒漠草原SOS和POS模拟与观测值较为一致。
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.65\textwidth]{D:/PHDprojects/latex/XJTU-thesis/Figures/Chapter3/LSPsourcespatialmean_desertsteppe1.pdf}
+  \caption{温带荒漠草原基于观测数据和基于模型模拟的中国北方草地关键物候期。}
+  \addtocounter{figure}{-1}
+  \vspace{5pt}
+  %\SetEnglishCaption
+  \renewcommand{\figurename}{Fig}
+  \caption{Spatial mean of key phenological metrics based on observation data and model simulations for temperate desertsteppe.}
+  \label{figure36}
+\end{figure}
+
+对于温带草甸区（\cref{figure37}），基于模型平均的SOS（第121 ± 15天）仍偏早于基于观测平均的SOS（第125 ± 16天），LPX（第115 ± 18天）的结果与NDVI观测的SOS（第115 ± 12天）基本一致，CLM（第119 ± 13天）和LPJ（第120 ± 15天）模型模拟的SOS也与NDVI观测值较为接近。对于POS，基于模型平均的结果晚于基于观测平均的结果15天左右，模型中LPJ（第219 ± 12天）和LPX（第219 ± 3天）的估计较为接近基于NDVI计算的POS（第214 ± 11天）。基于模型平均的EOS（第306 ± 8天）晚于基于观测平均的EOS（第261 ± 16天），各个模型模拟的EOS与基于NDVI数据提取的EOS相比，晚约17-41天。与温带荒漠草原观测结果类似，基于SIF计算的LOS为105 ± 23天，远短于基于NDVI计算的LOS（167 ± 13天）；模型模拟结果中，LPJ（173 ± 22天）与基于NDVI观测值比较接近，而其他模型对LOS的估计相对观测值均偏大。结果进一步表明，LPX模型对于温带草甸区植被SOS和POS的模拟与观测基本一致，而对EOS的模拟偏晚。
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.65\textwidth]{D:/PHDprojects/latex/XJTU-thesis/Figures/Chapter3/LSPsourcespatialmean_tempmeadow.pdf}
+  \caption{温带草甸基于观测数据和基于模型模拟的中国北方草地关键物候期。}
+  \addtocounter{figure}{-1}
+  \vspace{5pt}
+  %\SetEnglishCaption
+  \renewcommand{\figurename}{Fig}
+  \caption{Spatial mean of key phenological metrics based on observation data and model simulations for temperate meadow.}
+  \label{figure37}
+\end{figure}
+
+对于温带草甸草原区（\cref{figure38}），基于观测平均的SOS（第127 ± 10天）与基于模型平均的SOS（第129 ± 9天）基本一致，但这由于基于SIF观测计算的SOS较晚（第139 ± 15天）而使得基于观测的平均值较高。模型模拟的SOS均晚于基于NDVI观测的SOS（第116 ± 7天），相差8-22天。模型模拟的POS也普遍晚于两种观测数据源提取的POS，其中LPX（第219± 2天）的结果与基于NDVI计算的结果（第213 ± 7天）比较接近。SIF观测数据对于EOS的计算在草甸草原地区与基于NDVI观测数据计算的结果相差最大，为47天，另外模型对于EOS的模拟普遍晚于NDVI观测值，相差14-48天。对于LOS，SIF数据源的结果约为NDVI数据源观测结果的57\%，该结果进一步表明SIF数据对于草地SOS的推迟估计、EOS的提前估计和LOS的低估。模型中VEGAS（161 ± 18天）和LPX（168 ± 22天）的结果与基于NDVI的结果（163 ± 10天）比较接近，而仅LPX模型对SOS和EOS的模拟效果较好。
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.65\textwidth]{D:/PHDprojects/latex/XJTU-thesis/Figures/Chapter3/LSPsourcespatialmean_tempmedowsteppe.pdf}
+  \caption{温带草甸草原基于观测数据和基于模型模拟的中国北方草地关键物候期。}
+  \addtocounter{figure}{-1}
+  \vspace{5pt}
+  %\SetEnglishCaption
+  \renewcommand{\figurename}{Fig}
+  \caption{Spatial mean of key phenological metrics based on observation data and model simulations for temperate meadowsteppe.}
+  \label{figure38}
+\end{figure}
+
+对于温带典型草原区（\cref{figure39}），LPX（第117 ± 15天）对于SOS的模拟结果与基于NDVI观测（第116 ± 10天）的SOS基本一致，其他模型的模拟值均在第120天之后，基于SIF提取的SOS为第141 ± 17天。对于POS，两类观测数据源提取的结果较为一致，NDVI和SIF的观测结果分别为第217 ± 7天和第213 ± 14天，模型中LPX（第220 ± 3天）的结果最接近观测值，而其他模型模拟的POS均晚于观测平均值。对于EOS，基于SIF的观测（第240 ± 13天）相较基于NDVI的观测（第282 ± 6天）仍表现为明显的提前估计，而模型模拟的EOS均普遍较晚，超过第300天。相对于NDVI数据源，SIF数据源对LOS明显低估；由于模型模拟的EOS较晚，模型对于LOS的估计均偏长，平均为184 ± 16天，其中CLM对LOS的模拟最长（204 ± 13天），而其他4个模型比较LOS的估计比较集中（176-182天）。
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.65\textwidth]{D:/PHDprojects/latex/XJTU-thesis/Figures/Chapter3/LSPsourcespatialmean_typicalsteppe.pdf}
+  \caption{温带典型草原基于观测数据和基于模型模拟的中国北方草地关键物候期。}
+  \addtocounter{figure}{-1}
+  \vspace{5pt}
+  %\SetEnglishCaption
+  \renewcommand{\figurename}{Fig}
+  \caption{Spatial mean of key phenological metrics based on observation data and model simulations for temperate typical steppe.}
+  \label{figure39}
+\end{figure}
+
+以上结果表明，对于不同的草地类型，相对基于观测的结果，基于模型模拟的SOS在高寒草地类型中偏晚而在温带草地类型中偏早，EOS普遍比观测的结果偏晚，因此模拟的LOS偏长。LPX模型在各种草地类型中对于SOS和POS的模拟基本与基于NDVI观测的结果一致，而各模型对EOS的模拟在多数草地类型中都比基于NDVI观测的结果更晚。
+
+\xsubsection{格点尺度下多源遥感关键物候期}{Pixel scale}
+在格点尺度下（\cref{figure40}），我们重点分析了基于NDVI观测数据的关键物候期的空间格局，然后对比分析基于SIF观测数据和基于模型模拟的关键物候期相对其空间格局的差异\colorbox{yellow}{加abcd}。
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.8\textwidth]{D:/PHDprojects/latex/XJTU-thesis/Figures/Chapter3/GIMMSspatialLSP.pdf}
+  \caption{基于NDVI观测的中国北方草地关键物候期空间格局。}
+  \addtocounter{figure}{-1}
+  \vspace{5pt}
+  %\SetEnglishCaption
+  \renewcommand{\figurename}{Fig}
+  \caption{Spatial patterns of key phenological metrics based on NDVI of China northern grassland.}
+  \label{figure40}
+\end{figure}
+
+中国北方草地平均SOS为第127天，90\%的植被返青的时间为4月初至5月底（第90 – 150天）。内蒙古高原东部草甸草原、内蒙古高原中东部典型草原和内蒙古高原西部的荒漠草原SOS较早，基本在第90 – 120天，同一纬度地区如新疆阿尔泰-准格尔盆地北部、天山北坡-准格尔盆地南部的荒漠草原和典型草原的SOS也较早，而青海西藏地区的高寒草原和高寒草甸SOS晚于温带草地类型，基本在第130天之后，且由东南向西北SOS逐渐推迟。中国北方草地平均POS为第219天，90\%的植被在7月中下旬到8月底（第200 – 240天）进入生长旺盛季。与SOS空间格局类似，内蒙古温带草地和新疆地区的POS较早（第190 – 220天）而青藏高原高寒草地的POS（第210 – 240天）较晚。中国北方草地平均EOS为第284天，基本在第270-300天进入枯黄期，藏西高寒草原EOS明显偏晚，而其他地区EOS相差不大。对于LOS，中国北方草地平均值为158天，90\%的区域LOS在130 – 180天，其中内蒙古高原东部草甸草原与呼伦贝尔沙地、内蒙古高原中东部典型草原与浑善达克沙地和新疆天山北坡-准噶尔盆地南部草原LOS较长（160 - 180天），而青藏高原高寒草甸和高寒草原区域的LOS（130 - 150天）较短。
+
+与基于NDVI观测数据的物候期相比\colorbox{yellow}{图上加abcd}，基于SIF观测数据的SOS整体较晚（\cref{figure41}）。除了在天山-准格尔盆地南部草原区、三江源东部和祁连山高寒草甸区与NDVI观测值较为接近外，其他地区SOS普遍比NDVI观测值偏高，其中内蒙古中东部典型草原和浑善达克沙地区域、内蒙古高原西部荒漠草原的SOS发生晚于第140天，比NDVI观测值晚30天以上，西部高寒草甸和高寒草原地区的SOS基本发生在第160天以后，也比NDVI观测值晚30天以上。基于SIF观测的POS整体上偏早，新疆天山北坡POS在第170 – 200天左右，明显早于基于NDVI的观测结果30天左右。SIF观测的POS偏晚的地区主要是鄂尔多斯高原毛乌素沙地和藏西高寒草原部分区域，相对于NDVI观测值推迟0 – 10天左右。基于SIF的EOS普遍偏早，在新疆天山地区的观测值提前于NDVI观测值50天以上，此外在内蒙古高原中部和东部、浑善达克沙地和呼伦贝尔沙地都呈现明显的提前估计，比NDVI观测值早40天以上。由于SIF数据源观测的SOS相对较晚、EOS相对较早，LOS普遍偏短，尤其是内蒙古中东部的典型草原区，LOS比基于NDVI的观测值短近90天。
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.8\textwidth]{D:/PHDprojects/latex/XJTU-thesis/Figures/Chapter3/SIF_GIMMSspatialLSP.pdf}
+  \caption{基于SIF观测与基于NDVI观测的中国北方草地关键物候期对比的空间格局。(a)-(d)分别表示SOS、POS、EOS和LOS。}
+  \addtocounter{figure}{-1}
+  \vspace{5pt}
+  %\SetEnglishCaption
+  \renewcommand{\figurename}{Fig}
+  \caption{Spatial difference of key phenological metrics based on SIF and NDVI indices. (a)-(d) represent the start (SOS), peak (POS), end (EOS) and length (LOS) of the grwoing season.}
+  \label{figure41}
+\end{figure}
+
+而对于5种模型模拟的平均物候期\colorbox{yellow}{图上加abcd}，其空间格局与基于NDVI观测结果的差异与SIF表现相反（\cref{figure42}）。基于模型平均的SOS，在内蒙古鄂尔多斯高原毛乌素沙地区域、新疆塔里木-柴达木盆地荒漠草原区和科尔沁沙地区域模拟的SOS比NDVI观测的SOS早10-30天；而在其他地区较晚，主要是在呼伦贝尔沙地和浑善达克沙地以及藏西高寒草原区，模型平均的SOS比基于NDVI观测的SOS推迟10 – 40天。模型平均的POS在塔里木-柴达木盆地荒漠草原、内蒙古高原中东部部分区域与基于NDVI观测的POS较为一致，而在青藏高原高寒草甸和高寒草原区均晚于观测值20天以上，在藏西高寒草原区域基本在第250天以后发生。模型平均的EOS基本均晚于第290天，与NDVI观测值差异明显的地区仍是青藏高原高寒草地区，此外在鄂尔多斯高原毛乌素沙地模拟的EOS也较晚，比NDVI观测值推迟40天左右。对于LOS，由于模型模拟的EOS相对较晚，LOS普遍偏长，主要在科尔沁沙地和毛乌素沙地，LOS比基于NDVI的观测值长30 – 50天。
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.8\textwidth]{D:/PHDprojects/latex/XJTU-thesis/Figures/Chapter3/model_GIMMSspatialLSP.pdf}
+  \caption{基于模型观测与基于NDVI观测的中国北方草地关键物候期对比的空间格局。(a)-(d)分别表示SOS、POS、EOS和LOS。}
+  \addtocounter{figure}{-1}
+  \vspace{5pt}
+  %\SetEnglishCaption
+  \renewcommand{\figurename}{Fig}
+  \caption{Spatial difference of key phenological metrics based on model-ensemble and NDVI indices. (a)-(d) represent the start (SOS), peak (POS), end (EOS) and length (LOS) of the grwoing season.}
+  \label{figure42}
+\end{figure}
+
+对于不同的生态系统模型\colorbox{yellow}{（附图 A1 和 A2）}，SOS的空间格局各有异同，5种模型对于内蒙古高原东部草甸草原、内蒙古高原中东部典型草原、鄂尔多斯高原毛乌素沙地和新疆塔里木盆地北部SOS的模拟比较一致，除VEGAS模型外，其他模型对新疆天山北坡草原区的模拟比较一致。对于青藏高原高寒草原和高寒草地，只有VEGAS和VISIT模型模拟的SOS较为完整，而CLM、LPJ和LPX模型输出的LAI数据由于季节性振幅不明显等原因，导致没有合理的SOS估算值而缺失。比较基于不同模型的SOS和基于观测的SOS，结果表明几乎所有的模型的SOS均有一定程度的高估（偏晚估计）。
+
+比较不同模型之间POS的空间特征，除了LPX模型对内蒙古高原东部草甸草原和中东部典型草原模拟较早外，其他4个模型在这一地区较为一致；青藏高原地区高寒草原和高寒草甸各模型模拟结果相差10-30天不等，其中VISIT模型模拟POS最晚，VEGAS模型次之，CLM、LPJ和LPX的模拟结果比较接近。整体来看，仅LPX模型模拟的POS与基于NDVI观测的POS在内蒙古高原中东部最接近，其他模型在各地区模拟的POS都比观测值更晚；而不同模型间，LPJ和LPX模型的结果较为一致，VEGAS和VISIT模型的结果较为一致。
+
+对于EOS，LPJ和LPX模型的模拟值在青藏高原高寒草地区相对较小，与基于NDVI观测的POS比较一致，而在其他地区对于POS的模拟均相对观测较晚。CLM模型模拟的POS在内蒙古地区较晚而在青藏高原地区较早，而VISIT模型模拟的POS空间格局与CLM相反，POS在内蒙古地区比青藏高原地区更早。VEGAS模型模拟的EOS没有明显的空间特征，而整体相对基于NDVI观测的EOS晚10天左右。
+
+对于LOS，LPJ、LPX和VEGAS模型模拟的空间分布与基于NDVI观测的LOS空间分布比较一致，主要表现为内蒙古高原东部草甸草原和呼伦贝尔沙地、中东部典型草原和浑善达克沙地、西部荒漠草原区LOS较长，而青藏高原地区高寒草原和高寒草甸LOS较短。CLM和VISIT模型模拟的LOS在大部分区域都偏长，而在内蒙古高原中东部典型草原两模型的估计相差较大，CLM模型模拟的LOS偏长而VISIT模型偏短。
+
+\xsection{物候季节性特征突变空间格局}{Phenological seasonality}
+\xsubsection{物候季节性突变时间}{break years}
+
+关键物候指标利用了遥感指标时间序列的特征点信息，但并没有充分利用其完整的时间序列信息（Geerken，2009）。本研究使用BFAST突变检测算法，基于格点尺度将1982-2015年GIMMS NDVI分解为季节项、趋势项和残差项，对NDVI多年时间序列去趋势后得到的季节项特征作为物候长期季节性特征，并分析物候季节性特征变化的年份和空间分布。
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.8\textwidth]{D:/PHDprojects/latex/XJTU-thesis/Figures/Chapter3/bpspatialandgrasstype.pdf}
+  \caption{中国北方草地物候季节性特征突变次数的空间分布和草地类型差异。}
+  \addtocounter{figure}{-1}
+  \vspace{5pt}
+  %\SetEnglishCaption
+  \renewcommand{\figurename}{Fig}
+  \caption{Numbers of phenological seasonality change in (a) China northern grassland and (b) for different grassland types.}
+  \label{figure43}
+\end{figure}
+
+整体来看，从1982年到2015年，全区域13.77\%的面积检测到了物候季节性的变化（\cref{figure43}），并且季节性突变次数由0-6不等。内蒙古高原中东部典型草原区和鄂尔多斯高原毛乌素沙地区主要经历了一次物候季节性形状的变化；物候季节性形状发生二次突变的区域约占研究区面积的10.61\%，主要分布在内蒙古东部的草甸草原、内蒙古高原中部浑善达克沙地以及藏西高寒草原部分区域；青海三江源高寒草甸、毛乌素沙地北部和内蒙古高原东部经历了三次物候季节性形状的改变；藏西高寒草原、三江源地区和新疆天山荒漠草原区也有少数区域经历四次物候季节性形状变化；发生四次以上季节性形状变化的区域较少，仅占总研究区的2.6\%。
+
+在不同的草地类型中，温带典型草原的生长季形状改变的占比在前三次突变中都是最大。在第一次突变中，温带典型草原有15.9\%的区域显著变化，温带荒漠草原有13.6\%的区域变化，高寒草甸有12.7\%的区域变化；第二次突变中温带典型草原的突变占比为11.8\%，而随着突变次数的增加，温带草甸草原内的变化区域占比逐渐增加。由此可见，温带荒漠草原和高寒草甸类型生长季特征变化更频繁。
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.8\textwidth]{D:/PHDprojects/latex/XJTU-thesis/Figures/Chapter3/bp_spatialpattern.pdf}
+  \caption{中国北方草地物候季节性特征突变年份的空间分布。(a)-(f)分别表示第一次到第六次检测到突变的年份。}
+  \addtocounter{figure}{-1}
+  \vspace{5pt}
+  %\SetEnglishCaption
+  \renewcommand{\figurename}{Fig}
+  \caption{Years of phenological seasonality change in China northern grassland. (a)-(f) represent the first to sixth detected changes.}
+  \label{figure44}
+\end{figure}
+
+\cref{figure44}展示了中国北方草地区域物候季节性形状发生变化的年份。第一次检测到突变时，可以明显看到青藏高原地区突变年份较早，大多发生在1997年之前，而内蒙古高原地区，尤其是内蒙古高原西部荒漠草原区突变年份较晚，大多发生在2005年之后，此外，新疆天山地区第一次突变年份也较早，大多在1990年之前。第二次检测到突变时，内蒙古高原地区物候季节性形状变化的地区向东移，集中发生在内蒙古高原中东部典型草原区，大部分区域突变年份在2009年之后；而青藏高原地区高寒草甸和高寒草原区突变主要发生在1995 – 2000年之间。随着突变次数的增加，生长季形状变化的区域主要集中在青藏高原藏西草原和三江源草甸区，以及内蒙古高原中东部的典型草原区，说明这两大区域草地物候较为敏感。总体而言，物候季节性特征变化先发生在高寒草原区和高寒草甸区，2000年后物候季节性特征变化集中出现在半干旱草原区，如内蒙古中东部典型草原、鄂尔多斯高原毛乌素沙地等区域，物候季节性形状变化呈现出“西部高寒草地多发生时间早，东部温带草地少发生时间晚”的空间特征。
+
+此外，在突变年份中，1990年之前、1997年和2011、2012年内发生的突变区域最多（\cref{figure45}），总的来说，1998年以前中国北方草地物候季节性形状变化发生的区域比1998年之后变化的区域多接近2倍。
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.65\textwidth]{D:/PHDprojects/latex/XJTU-thesis/Figures/Chapter3/year_count.pdf}
+  \caption{中国北方草地物候季节性特征突变年份栅格数。}
+  \addtocounter{figure}{-1}
+  \vspace{5pt}
+  %\SetEnglishCaption
+  \renewcommand{\figurename}{Fig}
+  \caption{Numbers of phenological seasonality change in China northern grassland for different years.}
+  \label{figure45}
+\end{figure}
+
+我们选取了发生季节性形状突变区域较多的年份（1985、1997、2011、2012年），查看在特征年份发生物候季节性形状变化空间特征（\cref{figure46}）。1985年变化发生的区域比较分散，而1997年生长季形状的改变集中发生在青藏高原高寒草原区和三江源高寒草甸区；到2011年，藏西高寒草原部分地区出现突变，而更多的生长季形状变化出现在内蒙古高原中东部典型草原区和西部荒漠草原区；2012年，除了藏西高寒草原和内蒙古高原中东部典型草原，鄂尔多斯高原毛乌素沙地区域也集中发生了物候生长季形状的改变。
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=.8\textwidth]{D:/PHDprojects/latex/XJTU-thesis/Figures/Chapter3/4years.pdf}
+  \caption{特定年份物候季节性特征突变空间格局。(a)-(d)分别表示1985、1997、2011和2012年发生突变的区域。}
+  \addtocounter{figure}{-1}
+  \vspace{5pt}
+  %\SetEnglishCaption
+  \renewcommand{\figurename}{Fig}
+  \caption{Phenological seasonality change in year (a) 1985, (b) 1997, (c) 2011 and (d) 2012.}
+  \label{figure46}
+\end{figure}
 
 
+\xsubsection{物候季节性相对振幅变化}{seasonality}
 
-\xsection{导入代码}{Input codes}
+我们进一步选取了不同采样格点，展示了由NDVI时间序列分解的长期物候季节性形状变化（\cref{figure47}），分别表示出现不同突变次数下物候季节性形状可能的变化情况。
 
-从现有文件导入源码，使用 \clist[columbiablue]{lstlisting} 宏包，本模板预先定义了一基本格式 \clist{sty_basic} 以供使用，可以自定义新的样式。
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.8\textwidth]{D:/PHDprojects/latex/XJTU-thesis/Figures/Chapter3/seasonalitychange.pdf}
+  \caption{不同突变次数的物候季节性特征变化。(a)-(d)分别表示发生1-4次变化的情况。}
+  \addtocounter{figure}{-1}
+  \vspace{5pt}
+  %\SetEnglishCaption
+  \renewcommand{\figurename}{Fig}
+  \caption{Phenological seasonality change illustration. (a)-(d) represent one to four changes in decomposed seasonality.}
+  \label{figure47}
+\end{figure}
 
-\begin{texcodeonly}
-\lstinputlisting[style=sty_basic,
-  language=matlab,
-  caption={标准粒子群算法},
-  label={listing:a_label}]{./Codes/pso.m}
-\end{texcodeonly}
-\lstinputlisting[style=sty_basic,
-                    language=matlab,
-                    caption={标准粒子群算法},
-                    label={listing:a_label}]{./Codes/pso.m}
+例如发生一次物候季节性形状变化的格点，生长季曲线的振幅相较突变前更大，发生两次物候季节性形状变化的格点生长季曲线的振幅先增加，随后经历第二次变化后又减少。随着突变次数的增加，不同时间段内生长季曲线峰值的变化会越来越复杂。在此我们讨论第一次物候季节性变化前后所有格点去趋势后生长季峰值的相对变化，由于生长季峰值变化会影响基于阈值法提取的关键物候期，因此我们计算了物候季节性形状变化的所有格点突变前后SOS、POS、EOS和LOS的多年平均值。
+
+结果表明，北方草地生长季峰值总体上在物候季节性特征变化后有所提高，生长季形状突变发生后，去趋势后的生长季振幅平均比突变前振幅提高0.068个单位（\cref{figure48}）。从地区表现来看，鄂尔多斯高原毛乌素沙地生长季振幅增加较明显，新疆地区生长季振幅在突变后也呈现增加，而生长季振幅降低主要出现在青藏高原高寒草原部分区域和内蒙古高原西部的荒漠草原区。
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.8\textwidth]{D:/PHDprojects/latex/XJTU-thesis/Figures/Chapter3/magnitudechange1anddensity.pdf}
+  \caption{物候季节性特征突变前后振幅变化。(a)振幅变化空间分布；(b)振幅变化密度统计图。}
+  \addtocounter{figure}{-1}
+  \vspace{5pt}
+  %\SetEnglishCaption
+  \renewcommand{\figurename}{Fig}
+  \caption{Magnitude change before and after the phenological seasonality change. (a) Spatial patterns and (b) density plot of the magnitude change.}
+  \label{figure48}
+\end{figure}
+
+对比物候季节性形状变化前后时段内关键物候期的均值（\cref{figure49}），我们发现突变前的SOS较早，POS和EOS较晚，LOS较长；季节性形状改变后，发生突变的栅格SOS平均推迟1.3天、POS和EOS分别提前1.3天和2.4天，LOS短缩3.8天。这意味着整体上生长季形态的变化可能是，生长季前半段曲线增速变缓，生长季峰值变高，生长季后半段曲线降速变快。
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.65\textwidth]{D:/PHDprojects/latex/XJTU-thesis/Figures/Chapter3/LSPchangeSBCSAC.pdf}
+  \caption{物候季节性特征突变前后关键物候期变化。(a)-(d)分别表示SOS、POS、EOS和LOS突变前后时段均值变化。}
+  \addtocounter{figure}{-1}
+  \vspace{5pt}
+  %\SetEnglishCaption
+  \renewcommand{\figurename}{Fig}
+  \caption{Changes in averaged phenological metrics (a) SOS, (b) POS, (c) EOS and (d) LOS before and after the phenological seasonality change.}
+  \label{figure49}
+\end{figure}
+
+
+\xsection{讨论和小结}{Discussion}
+\xsubsection{多源遥感数据源提取的关键物候期的差异}{model difference}
+
+物候监测已经从一个观察和记录少数物种每年发生的几个关键自然事件周期的经验性计量，发展成为一个涉及不同时空尺度、不同数据源监测和模拟的综合性观测。本研究首次综合利用了2套遥感观测数据和5套生态系统模型模拟数据，从不同角度分析了中国北方草地区域关键物候期。基于NDVI植被指数所观测的物候期，是基于地表植被覆盖绿度信息，在植被开始绿化时就显示出变化，反映植被潜在光合作用；而光合作用在植物叶片展开后开始，在叶片衰老之前停止，因此基于光合作用产生的叶绿素荧光信息（SIF）在光合作用显著增强时才变化，反映了真实光合作用。在这两种观测角度下，本研究发现基于SIF提取的SOS普遍比基于NDVI提取的偏晚，在青藏高原高寒草地中偏晚约20 – 30 天，与Fandong Meng等（2021）研究结果一致，此外在内蒙古高原中东部温带草地中对SOS的观测也有明显的推迟；而基于SIF提取的EOS普遍比NDVI观测值偏早，因而造成较短的生长季长度。（利用日光诱导叶绿素荧光数据分析2007年—2018年北半球植被物候特征空间格局及其变化趋势）。目前已有的基于SIF的物候研究主要集中于常绿针叶林、温带森林以及作物，均表明基于SIF数据计算的植被生长季明显短于基于植被指数的计算结果，这与草地生态系统的差异一致，但SIF与传统植被指数相比在反演森林生态系统物候期的优势和与地面观测更好的精度，而基于植被指数反演的森林物候期往往会受到云和大气的干扰，以及森林绿度信息过饱和、年内变化特征不明显等因素的影响。相反，在草地生态系统中，基于NDVI的物候期比基于SIF观测的物候期更接近地面观测的结果，更能反映草地植被年内物候的变化。
+
+除了遥感观测的历史数据，地球系统模型通过对气候变化、土壤、植被和大气之间的相互作用进行综合模拟，为物候监测提供了另一种视角。这些模型能够在全球尺度上模拟和预测植被物候变化，有助于理解植被物候在气候变化背景下的响应和反馈机制。Xiaolu li等（2021）对比了北半球CLM模型模拟的SOS与遥感观测的SOS的差异，发现CLM模型模拟的SOS偏晚，比观测平均晚30天左右，且在常绿林中差异更大。本研究发现在草地生态系统中，模型模拟的关键物候期也相对于NDVI观测值偏晚，并且在对EOS的模拟上与遥感观测值相差最大，因而导致LOS普遍偏长。模型模拟和遥感观测的差异可能来源于以下几个方面：（1）时间尺度差异，本研究使用的动态植被模型和陆面模式输出的植被指数参数为月值数据，因此基于月值数据提取的物候期存在30天左右的系统误差；（2）空间尺度差异，由于模型主要针对全球尺度下的碳水耦合模拟，空间尺度为xxx，其对应的植被功能性与遥感产品的土地覆盖类型存在不匹配的情况；（3）植被指数参数的定义在遥感观测和模型模拟中的差异，例如，植被动态模型中的常绿林植被参数通常被定义为没有明显的年内变化，而遥感植被参数是基于对土地覆盖类型和观测反射率的变化得出的，两者本身定义的差异会使得基于不同植被参数时间序列计算的物候期不同。在目前大多数地球系统模型中，关于草地生态系统植被动态和生长季开始和结束的假设主要受温度和土壤水分的驱动，例如CLM模式中，生长季开始需满足一定积温和土壤水势条件，生长季结束受低温、光照和土壤水分的限制。
