@@ -1,69 +1,179 @@
 % !TeX root = ../main.tex
 
-\xchapter{参考文献与交叉引用}{Crossreferences}
+\xchapter{中国北方草地物候空间格局的驱动机制}{The mechanism of spatial patterns of phenological metrics in China northern grassland}
 
-注意，当引用时出现 [?] 时，可能有有多种原因造成，首先请确定是否使用了 biber 编译模板，再请注意查看辅助文件是否正常生成，此种问题大部分情况是使用不当而非模板设置造成的。
+本章节利用地理探测器模型和空间滑动回归，基于NDVI观测数据分析了的中国北方草地特定物候时期和长期生长季特征的空间格的环境驱动因子。其中第一部分介绍中国北方草地特定物候期的空间格局的主导因子及交互作用；第二部分介绍特定物候期的空间格局对主导因子的空间气候敏感性；第三部分介绍中国北方草地长期生长季特征变化的驱动机制；第四部分为本章讨论和小结。
 
-\xsection{基于 Label 的引用}{Ref labels}
+\xsection{物候期空间格局的主导因子及交互作用}{The dominant factors in driving the spatial patterns and their interactive effects}
 
-% \xsubsection{引用公式}{Ref equations}
+对于关键物候期空间格局的环境驱动因子，我们首先分析了空气温度、降水、土壤温度、土壤湿度、饱和水汽压差等气候因子的空间格局；其次基于地理探测器的因子探测和交互作用探测模型，在区域尺度下和不同草地类型下分别定量分析了物候期空间变化的主要环境驱动因子；最后我们分析了主导因子对物候期空间分异的影响随年份的变化。
 
-% 引用公式使用 \clist{\eqref{label}} 命令，将引用公式的编号（带括号）：
+\xsubsection{北方草地整体物候期空间格局的主导因子及交互作用}{Regional scale}
 
-% \begin{texcode}[]{}
-%   如式 \eqref{eqn:c1:diff} 所示
-% \end{texcode}
+水热条件是造成关键物候期地理上空间分异的主要原因。\cref{C4:1}表明，中国北方草地区域年均气温基本在-10℃到15℃之间，呈现明显的地带性特征。具体来说，在海拔较高的青藏高原地区和纬度较高的大兴安岭以西、新疆天山山脉、阿尔泰山脉和中部祁连山脉地区，年均温较低，在-10℃到0℃；内蒙古高原温带草地覆盖区和塔里木盆地、柴达木盆地年均温较高，在0℃到15℃。我国降水主要受夏季风的影响，太平洋水汽透过夏季风被输送至陆地，随着传输距离的增加以及复杂地形的阻碍，夏季风势逐渐减弱。在大兴安岭两侧，由于山脉对大气流的阻挡，大兴安岭东侧地区积聚了大量水汽，成为降水量等值线（400mm）的最北端，同时界定了湿润与干旱气候之间的分界线。年平均累计降水延经度梯度从东至西逐渐减少，从内蒙古高原东部和中部年降水300mm左右到内蒙古高原西部降至200mm以下。此外，在青藏高原地区，年降水呈现明显的由东南至西北减少的带状分布特征，藏东南地区高于1000mm，而藏西地区平均在250mm左右。
 
-% \xsubsection{引用其他内容}{Ref other labels}
+年均土壤表层温度和湿度的空间分布和气温、年降水一致（\cref{C4:1}），土壤温度比气温整体高2℃左右，同样是高海拔、高纬地区和主要山脉的土壤温度偏低，而内蒙古高原和盆地区域土壤温度较高。土壤湿度和降水一样，呈现出明显的东南向西北逐渐降低的带状特征，在新疆天山山脉土壤湿度相对较高，与降水格局呈现一致的特征。辐射因子的空间分布表明，青藏高原地区年均辐射较高而新疆、内蒙古区域辐射较低，由于辐射因子在中国北方区域并不是影响植被生长的限制因子\colorbox{yellow}{（文献）}，本文后续章节将主要讨论温度因子和湿度因子对草地物候期的影响。饱和水汽压差（VPD）反映了大气干燥程度，是植被生长重要的影响因子，而其对于植被物候的影响还未被广泛研究。中国北方区域VPD的空间格局和降水与土壤表层湿度空间分布基本相反，反映出越湿润的地区大气干燥程度也越低，而越干旱的区域大气干燥程度越高。温度因子（气温、土壤表层温度）和湿度因子（降水、土壤表层湿度和VPD）的空间格局是造成草地特定物候期沿经度梯度变化（\cref{figure40}）的重要原因。
 
-基于 \clist{\label{}} 编号的引用，可以通过 \clist[columbiablue]{cleveref} 提供的 \clist{\cref} 实现，它可以通过识别 label 的类型，自动为引用添加前缀。具体的使用方法可以查看该宏包的文档。
+\renewcommand{\dblfloatpagefraction}{.8}
+\begin{figure}[ht]
+  \centering
+  %\vspace{-0.1cm}
+  \setlength\abovedisplayskip{0pt}
+  \includegraphics[width=.75\textwidth]{D:/PHDprojects/latex/XJTU-thesis/Figures/Chapter4/Climatespatialmean.pdf}
+  \caption{中国北方区域主要气候因子空间特征。(a)-(f)分别表示多年平均气温、降水、土壤温度、土壤湿度、太阳辐射和饱和水汽压差。}
+  \addtocounter{figure}{-1}
+  \vspace{5pt}
+  %\SetEnglishCaption
+  \renewcommand{\figurename}{Fig}
+  \caption{Multi-year averaged value of the climatic factors. (a)-(f) represent annual air temperature, total precipitation, soil surface temperature, soil surface moisture, short radiation and VPD.}
+  \label{C4:1}
+\end{figure}
 
-应当这样使用 \clist{\label{TYPE:NAME}}，其中 TYPE 指此标签的类型，应当使用模板提供的或自行指定；NAME 为此标签的名称，可以自行定义，不应当重复。模板为所有举例过的环境预设了类型，其中在\cref{section:Environments for math}中预设了 $12$种数学环境，则其 TYPE 与该环境的「环境」列保持一致，其余类型的定义见下：
+针对地理探测器的主导因子分析，我们分别选取了各个关键物候期前4个月的月份气象因子和前两个月的季节气象因子，包括气温、降水、土壤温度、土壤湿度和VPD；针对POS和EOS，我们还分析了SOS和POS作为前期物候因子的延续影响。根据地理探测器因子分析方法（第二章xx），首先计算不同离散化方法下影响因子的q值，确定最优连续变量因子离散化方法，然后根据通过空间相关显著性（P < 0.05）的因子，按照q值的大小选取前9个因子（或小于9个因子），进一步分析因子的交互作用。
 
-\begin{texcode}[]{}
-  如\cref{equation:c1:diff} 所示 \\
-  如\crefrange{equation:c1:exp}{equation:c1:diff} 所示 \\
-  如\cref{equation:c1:diff,equation:c1:exp,equation:c1:mdl:cstr_dis} 所示 \\
-  如\cref{figure:icon} 所示，如\cref{subfigure:icon} 所示 \\
-  如\cref{table:methodcompare} 所示 \\
-  如\cref{algorithm:SOH} 所示 \\
-  如\cref{listing:a_label} 所示 \\
-  如\cref{theorem:pt} 所示
-\end{texcode}
+对于北方草地，季前月份气象因子和季节气象因子与SOS空间分异显著相关的有29个，按照q值排序，前5个影响因子均为温度因子（\cref{C4:2}），其中积温（GDD）对SOS空间变化解释度最高，约为45\%，其次4月气温（42\%）、春季气温（39\%）、4月土壤温度（38\%）和春季土壤温度（36\%）解释度较高；此外，湿度因子中主要是春季VPD（32\%）、4月VPD（32\%）、4月土壤湿度（31\%）和春季土壤湿度（30\%）对SOS空间分异影响较强。不同因子的空间数据离散化方法存在差异（\cref{C4:3}），总的来说，基于自然间距分类和分位数分类方法将连续变量离散化后，各因子与SOS的相关性最显著且解释度较高。对于温度因子，基于自然间距分类和几何间距分类效果最好，离散化数量稳定在15、16段区间；对于湿度因子，等距分类和几何间距分类下空间相关性不显著，而对于土壤湿度因子，仅在自然间距分类方法下对SOS空间分异解释度显著。
 
-模板只对数学公式设置了多种引用时的样式，并未对其他类型设置，如果有使用的需要，请自行查看手册与模板文件模仿修改。
+\renewcommand{\dblfloatpagefraction}{.8}
+\begin{figure}[ht]
+  \centering
+  %\vspace{-0.1cm}
+  \setlength\abovedisplayskip{0pt}
+  \includegraphics[width=.8\textwidth]{D:/PHDprojects/latex/XJTU-thesis/Figures/Chapter4/SpatialmeanDominantfactor.pdf}
+  \caption{中国北方草地关键物候期空间分异因子解释度。气温、降水、土壤温度、土壤湿度和饱和水汽压差分别缩写为AT、AP、ST、SM、VPD；角标数字代表月份和季节缩写。}
+  \addtocounter{figure}{-1}
+  \vspace{5pt}
+  %\SetEnglishCaption
+  \renewcommand{\figurename}{Fig}
+  \caption{Q values and interactive q values of influencing factors that driving spatial heterogeneity of the phenological metrics. AT, AP, ST, SM represent air temperature, precipitation, soil temperature and moisture. The subscript numbers represent month and season abbreviations.}
+  \label{C4:2}
+\end{figure}
 
-\xsection{参考文献}{References}
+因子交互作用下，GDD主要与湿度因子通过双因子增强作用对SOS的影响较强，GDD∩春季土壤湿度的解释度提高至52\%，GDD∩春季VPD、4月土壤湿度和4月VPD交互解释度均在50\%左右。因此，温度因子主导SOS空间分异，且温度因子与湿度因子的交互作用增强了单因子对SOS空间变化的解释度。
 
-\begin{tcolorbox}[colback=red!5!white,colframe=red!75!black]
-  \begin{enumerate}[leftmargin=0.5cm]
-    \item 参考文献的著录格式应符合国家标准GB/T 7714-2015《文后参考文献著录规则》。参考文献中每条项目应齐全。
-    \item 参考文献里面标点符号：英文文献用半角,中文文献用全角。
-  \end{enumerate}
-\end{tcolorbox}
+\renewcommand{\dblfloatpagefraction}{.8}
+\begin{figure}[ht]
+  \centering
+  %\vspace{-0.1cm}
+  \setlength\abovedisplayskip{0pt}
+  \includegraphics[width=.8\textwidth]{D:/PHDprojects/latex/XJTU-thesis/Figures/Chapter4/Geodiscmethod_SOS.pdf}
+  \caption{不同离散化方式下生长季始期空间分异的主导因子解释度。四种因子离散化方法分别为等距间隔、几何间隔、自然间隔和分位数间隔分类法。}
+  \addtocounter{figure}{-1}
+  \vspace{5pt}
+  %\SetEnglishCaption
+  \renewcommand{\figurename}{Fig}
+  \caption{Q values of the dominant factors for the start of the growing season (SOS) spatial heterogeneity. Four methods are equal, geometric, natural and quantile discretization. }
+  \label{C4:3}
+\end{figure}
 
-\begin{tcolorbox}[colback=blue!5!white,colframe=blue!75!black]
-  \begin{enumerate}[leftmargin=0.5cm]
-    \item 文后著录的参考文献务必实事求是。论文中引用过的文献必须著录，未引用的文献不得出现。应遵循学术道德规范，避免涉嫌抄袭、剽窃等学术不端行为。
-    \item 参考文献一般应是作者亲自考察过的对学位论文有参考价值的文献，除特殊情况外，一般不应间接引用。
-    \item 参考文献应有权威性，要注意引用最新的文献。
-    \item 参考文献的数量：
-    博士学位论文，一般应在80篇以上，其中，期刊文献60篇以上，国外文献30篇以上，均以近5年的文献为主。
-    硕士学位论文，一般应在30篇以上，其中，期刊文献不少于20篇，国外文献不少于10篇，均以近5年的文献为主。
-  \end{enumerate}
-\end{tcolorbox}
+27个因子与北方草地POS空间分异显著相关，其中SOS主导POS的空间变化，解释度为59\%，最佳离散化方法为自然间距分类法 （\cref{C4:4}）；其余气象因子中，主要是温度因子且气温因子对POS空间分布的影响较强，夏季气温和5、6、7月气温对POS解释度较高，平均在30\%左右，温度因子使用几何间隔分类和等距间隔分类方法效果较好；此外春季土壤湿度（30\%）对POS空间分布的解释度也相对较强，且应用自然间隔分类法对土壤湿度因子数据离散化效果最好。
 
-模板使用 biblatex 编译参考文献，默认采用顺序编码制，有多种引用参考文献的方式，请自行查阅 biblatex-gbt-7715-2015 宏包，即 \clist{texdoc biblatex-gbt-7714-2015}。
+SOS∩春季土壤湿度交互作用的q值最高，呈现双因子增强作用，对POS空间分异的解释度提高为67\%；此外，温度因子与SOS的交互作用均较强，其中5-8月的气温、夏季气温和积温与SOS交互作用下对POS的解释度均在64\%以上。
 
-在导言区使用\clist{\addbibresource{path/to/.bib file}}添加参考文献数据库，默认参考文献数据库位于 ./References/ 下。
+\renewcommand{\dblfloatpagefraction}{.8}
+\begin{figure}[ht]
+  \centering
+  %\vspace{-0.1cm}
+  \setlength\abovedisplayskip{0pt}
+  \includegraphics[width=.8\textwidth]{D:/PHDprojects/latex/XJTU-thesis/Figures/Chapter4/Geodiscmethod_POS.pdf}
+  \caption{不同离散化方式下生长旺盛期空间分异的主导因子解释度。四种因子离散化方法分别为等距间隔、几何间隔、自然间隔和分位数间隔分类法。}
+  \addtocounter{figure}{-1}
+  \vspace{5pt}
+  %\SetEnglishCaption
+  \renewcommand{\figurename}{Fig}
+  \caption{Q values of the dominant factors for the peak of the growing season (POS) spatial heterogeneity. Four methods are equal, geometric, natural and quantile discretization. }
+  \label{C4:4}
+\end{figure}
 
-这里主要举例三种引用方式，使用 \clist{\cite{ref}} 的引用结果作为上标出现在正文中，使用 \clist{\parencite{ref}} 的引用结果作为正文内容（一个名词）出现在正文中，使用 \clist{\footfullcite{ref}} 的引用结果作为脚注内容在脚注部分出现。
+对于EOS，其空间分异与15个因子显著相关，其中POS解释度为61\%，说明POS主导EOS的空间变化，同样的其离散化方法使用自然间距分类法最佳（\cref{C4:5}）；其余气象因子q值均偏低，秋季降水和10月降水虽然对EOS空间分异解释度在15\%左右，但其空间相关性并未通过显著性检验。10月土壤湿度相对解释度较高，为10\%。对于温度和湿度因子，采用几何间隔分类和自然间隔分类方法的空间解释度最高，土壤湿度因子仍是仅在自然间隔分类法下离散化效果最佳。就因子交互作用来看，POS∩土壤湿度因子的q值较高，其中与夏季土壤湿度、7、8、9月土壤湿度交互作用均为双因子增强，对EOS空间分异的解释度都在65\%左右。
+
+\renewcommand{\dblfloatpagefraction}{.8}
+\begin{figure}[ht]
+  \centering
+  %\vspace{-0.1cm}
+  \setlength\abovedisplayskip{0pt}
+  \includegraphics[width=.8\textwidth]{D:/PHDprojects/latex/XJTU-thesis/Figures/Chapter4/Geodiscmethod_EOS.pdf}
+  \caption{不同离散化方式下生长季末期空间分异的主导因子解释度。四种因子离散化方法分别为等距间隔、几何间隔、自然间隔和分位数间隔分类法。}
+  \addtocounter{figure}{-1}
+  \vspace{5pt}
+  %\SetEnglishCaption
+  \renewcommand{\figurename}{Fig}
+  \caption{Q values of the dominant factors for the end of the growing season (EOS) spatial heterogeneity. Four methods are equal, geometric, natural and quantile discretization. }
+  \label{C4:5}
+\end{figure}
+
+对于LOS，我们仅选取了年均气象因子进行地理探测器因子分析，各气象因子均与LOS空间分异显著相关。GDD对LOS空间变化的解释度相对较高，约为25\%，且采用自然间隔分类方法的效果最好（\cref{C4:6}）；其次VPD和土壤温度对LOS空间分异的解释度都为22\%，分别在分位数分类和自然间距分类法下与LOS空间离散显著相关。湿度因子如降水和土壤湿度都是自然间隔分类效果最好，尽管年均降水和年均土壤湿度单因子重要性较低，两个湿度因子与GDD交互作用最强（\cref{C4:6}），均为非线性增强，显著增强了单因子对LOS空间格局的解释度，GDD∩年均降水和GDD∩年均土壤湿度解释度分别为34\%和32\%。
+
+\renewcommand{\dblfloatpagefraction}{.8}
+\begin{figure}[ht]
+  \centering
+  %\vspace{-0.1cm}
+  \setlength\abovedisplayskip{0pt}
+  \includegraphics[width=.8\textwidth]{D:/PHDprojects/latex/XJTU-thesis/Figures/Chapter4/Geodiscmethod_LOS.pdf}
+  \caption{不同离散化方式下生长季长度空间分异的主导因子解释度。四种因子离散化方法分别为等距间隔、几何间隔、自然间隔和分位数间隔分类法。}
+  \addtocounter{figure}{-1}
+  \vspace{5pt}
+  %\SetEnglishCaption
+  \renewcommand{\figurename}{Fig}
+  \caption{Q values of the dominant factors for the length of the growing season (LOS) spatial heterogeneity. Four methods are equal, geometric, natural and quantile discretization. }
+  \label{C4:6}
+\end{figure}
 
 
+\xsubsection{不同草地类型下物候期空间格局的主导因子及交互作用}{Grasstype scale}
 
-\begin{texcode}[]{}
-  这是一个比较常见的问题 \cite{barella_situ_2021}。可以发现 xxxx \cite{atta_enhanced_2021}。\\
-  文献\parencite{张燕2013电气自动化在电气工程中的应用探讨} 提出了 xxx，文献 \parencite{黄雪芳2012探讨电气工程中自动化技术的应用} 则提出了 yyy。
-\end{texcode}
+我们首先对比了不同草地类型下物候期的平均值和水热背景值的差异（\cref{C4:7}），从温度因子来看，高寒草原和高寒草甸区域的年均气温和年均土壤表层温度都低于0℃，藏西高寒草原气温和土壤温度最低，分别为-4.34℃和-1.91℃；同时高寒草原区年降水也较少，为273mm，在冷而干的水热限制下各个关键物候期都最晚发生。高寒草甸区年降水最多，约为432mm，土壤湿度相对最高而VPD最低，因此高寒草甸相对冷湿的环境下，各个物候期的时间也较晚。温带4种草地类型的年均气温和土壤温度都大于0℃，其中温带荒漠草原气温和土壤温度最高，分别为4.92℃和6.64℃；而荒漠草原区年降水最少，土壤湿度也相对较低，在相对暖干的水热条件下，SOS最早到来，EOS偏晚，LOS最长。温带草甸草原区域年均气温、土壤温度相对较低而降水最多，土壤湿度较高，在温带草地类型中EOS最早，LOS相对较短。温带典型草原和温带草甸年均气温和土壤温度相差不大，年降水也均在300mm左右，温带草甸由于温度稍高，VPD相对较高，这两种草地类型SOS和EOS基本一致，LOS都为166天。
 
-\footnote{这是脚注1}根据 zzz 发布的报告 \footfullcite{王磊2011电气自动化控制设备可靠性探究}，可以发现\footnote{这是脚注2}
+\renewcommand{\dblfloatpagefraction}{.8}
+\begin{figure}[H]
+  \centering
+  \vspace{-0.1cm}
+  \setlength\abovedisplayskip{0pt}
+  \includegraphics[width=.5\textwidth]{D:/PHDprojects/latex/XJTU-thesis/Figures/Chapter4/Spatialgrassclimate.pdf}
+  \caption{不同草地类型的主要气候因子平均值。}
+  \addtocounter{figure}{-1}
+  \vspace{5pt}
+  %\SetEnglishCaption
+  \renewcommand{\figurename}{Fig}
+  \caption{Averaged values of climatic factors in different grassland types. }
+  \label{C4:7}
+\end{figure}
+
+对于不同草地类型下物候期的空间分异，我们基于不同草地类型分区，分析了季前温度因子和湿度因子对各物候期的空间分异解释度。总体结果表明（\cref{C4:8}），SOS空间分异主要受温度因子主导。针对两种高寒草地，高寒草甸季前月份气象因子和季节气象因子与SOS空间分异的q值均小于0.1，说明各因子对SOS的空间分异解释度不高，4月土壤温度和4月土壤湿度q值最高，其次2月、1月和冬季气温q值较高；而对于高寒草原，季前月份气象因子和季节气象因子与SOS空间分异显著相关的有27个，前9个因子全部是温度因子，其中气温因子（4月气温、春季气温和3月气温）q值稍高于土壤温度因子（1月、2月和冬季土壤温度）。双因子交互作用大多表现为双因子增强，温度与湿度因子的耦合显著增强了单因子对于SOS空间分异的解释度。例如在高寒草甸中，2月气温∩2月降水交互解释约17\%的SOS空间变化，4月土壤温度∩1月土壤湿度对SOS空间变化解释度为16\%左右。在高寒草原中，不同月份和季节的气温因子∩春季降水的q值较高，解释约24\%的SOS空间变化。
+
+\renewcommand{\dblfloatpagefraction}{.8}
+\begin{figure}[H]
+  \centering
+  \vspace{-0.1cm}
+  \setlength\abovedisplayskip{0pt}
+  \includegraphics[width=.8\textwidth]{D:/PHDprojects/latex/XJTU-thesis/Figures/Chapter4/Geofactorgrass_SOS.pdf}
+  \caption{不同草地类型的生长季始期空间分异主导因子解释度。红色表示温度因子，蓝色表示湿度因子。}
+  \addtocounter{figure}{-1}
+  \vspace{5pt}
+  %\SetEnglishCaption
+  \renewcommand{\figurename}{Fig}
+  \caption{Q values of the dominant factors for the start of the growing season. Red and blue colors represent temperature and humidity factors.}
+  \label{C4:8}
+\end{figure}
+
+对于温带荒漠草原，所有季前月份气象因子和季节气象因子均与SOS空间格局显著相关，而温度因子主导SOS空间格局，其中4月气温、4月土壤温度、春季土壤温度和春季气温对SOS空间格局解释度均超过40\%。土壤温度因子对温带草甸草原SOS空间分异的影响最高，其中2月土壤温度和冬季土壤温度解释力度分别为35\%和28\%，其次4月降水（26\%）和春季土壤湿度（24\%）解释度也较高。而对于温带草甸和温带典型草原，SOS空间格局均是由冬季降水主导。同样在温度和湿度因子的交互作用下，非线性增强了单因子对SOS空间格局的影响\colorbox{yellow}{（图）}，对于温带荒漠草原，4月土壤温度∩冬季土壤湿度和1月土壤湿度对SOS空间变化解释度较高，都在60\%水平；温带草甸草原中，2月土壤温度∩春季土壤湿度交互影响下解释度增强至71\%。冬季降水∩4月的气温或土壤温度、春季土壤温度，对温带典型草原和温带草甸SOS的空间分异影响在50\%左右。
+
+对于大多数草地类型，POS的空间分异受生长延续效应主导，其次主要受湿度因子影响（\cref{C4:10}）。高寒草甸POS空间分异仅与两个因子显著相关，其中6月土壤湿度q值为0.24，即解释24\%的POS空间变化；而高寒草原POS的空间变化与14个因子显著相关，其中SOS主导了POS的空间分异，解释力度达50\%，春季土壤温度、5月气温和5月土壤温度对POS空间变化解释度都在20\%以上，说明除生长延续效应外，温度主要影响了高寒草原的POS空间分异。温带草甸、草甸草原和荒漠草原POS均受SOS的影响最多，此外均是土壤湿度因子或者夏季月份降水影响了POS的空间变化。生长延续效应在温带典型草原中并不显著，主要是夏季月份的降水和土壤湿度主导POS空间分异。
+
+\renewcommand{\dblfloatpagefraction}{.8}
+\begin{figure}[H]
+  \centering
+  \vspace{-0.1cm}
+  \setlength\abovedisplayskip{0pt}
+  \includegraphics[width=.8\textwidth]{D:/PHDprojects/latex/XJTU-thesis/Figures/Chapter4/Geofactorgrass_POS.pdf}
+  \caption{不同草地类型的生长旺盛期空间分异主导因子解释度。红色表示温度因子，蓝色表示湿度因子，绿色表示生长延续效应。}
+  \addtocounter{figure}{-1}
+  \vspace{5pt}
+  %\SetEnglishCaption
+  \renewcommand{\figurename}{Fig}
+  \caption{Q values of the dominant factors for the peak of the growing season. Red and blue colors represent temperature and humidity factors. Green represents the carry-over effect.}
+  \label{C4:10}
+\end{figure}
+
+对于POS，生长延续效应与湿度因子的交互作用显著增强单因子的空间解释度\colorbox{yellow}{图}。在三个主要受生长延续效应主导的温带草地中，SOS∩季前VPD，SOS∩春季土壤湿度对温带荒漠草原和温带草甸草原POS的空间影响分别提升至64\%和77\%，而SOS∩夏季土壤温度对温带温带草原POS的空间分布影响最高，为63\%。对于温带典型草原，7月和8月气温和降水的交互作用对POS的影响较高，解释约48\%的空间分异特征。在高寒草甸中，6月土壤湿度∩8月土壤湿度交互作用为非线性增强，可以解释约42\%的POS的空间分异；在高寒草原中，SOS∩春季土壤温度，SOS∩夏季降水为双因子加强，对POS的空间分异解释度超过60\%。
+
+生长延续效应对EOS的空间分布也比较广泛，此外基本是湿度因子继续主导了各草地类型EOS的空间分布（图）。
